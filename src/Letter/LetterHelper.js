@@ -1,4 +1,4 @@
-import { States } from "./States";
+import { States } from "../Enums/States";
 
 function getCurrentLettersWithStates(currentRow, wordleWord) {
   currentRow.forEach((currentInputBox, index) => {
@@ -32,16 +32,32 @@ function letterIsClose(letter, index, wordleWord, currentRow) {
   return (
     wordleWord.includes(letter) &&
     wordleWord[index] !== letter &&
-    lettersOccurrenceInCurrentRowByIndex(letter, index, currentRow) <
+    correctlyGuessedLetterCount(letter, currentRow) <
+      amountOfCurrentLetterInWordleWord &&
+    lettersOccurrenceInCurrentRowByIndex(letter, index, currentRow) <=
       amountOfCurrentLetterInWordleWord
   );
 }
 
+function correctlyGuessedLetterCount(letter, currentRow) {
+  let count = 0;
+  currentRow.forEach((currentInputBox) => {
+    if (
+      currentInputBox.letter === letter &&
+      currentInputBox.state === States.Correct
+    ) {
+      count++;
+    }
+  });
+  return count;
+}
+
 function lettersOccurrenceInCurrentRowByIndex(letter, index, currentRow) {
   const slicedWord = currentRow.slice(0, index);
-  return slicedWord.filter(
-    (currentInputBox) => currentInputBox.letter === letter
-  ).length;
+  return (
+    slicedWord.filter((currentInputBox) => currentInputBox.letter === letter)
+      .length + 1
+  );
 }
 function letterOccurrenceInWordleWord(inputLetter, wordleWord) {
   return wordleWord.split("").filter((letter) => letter === inputLetter).length;

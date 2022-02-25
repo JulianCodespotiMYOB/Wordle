@@ -10,7 +10,11 @@ function displayBoxBorder(id, letterInputBoxes) {
 function removeLastInputtedLetter(letterInputBoxes, setLetterInputBoxes) {
   setLetterInputBoxes(letterInputBoxes.slice(0, -1));
 }
-function addInputtedLetterToRows(setLetterInputBoxes, inputBox) {
+function addInputtedLetterToRows(setLetterInputBoxes, key) {
+  let inputBox = {
+    letter: key,
+    state: "",
+  };
   setLetterInputBoxes((row) => [...row, inputBox]);
 }
 export {

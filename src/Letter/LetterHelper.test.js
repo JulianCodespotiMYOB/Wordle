@@ -1,5 +1,5 @@
 import { getCurrentLettersWithStates } from "./LetterHelper";
-import { States } from "./States";
+import { States } from "../Enums/States";
 
 describe("Wordle app where one guess has been made", () => {
   const inputBox1 = {
@@ -60,7 +60,6 @@ describe("Wordle app where one guess has been made", () => {
 
   it("the guess 'a' should have the state INCORRECT", () => {
     //ARRANGE
-    const expected = States.Incorrect;
     //ACT
     const actual = getCurrentLettersWithStates(
       letterInputBoxes,
